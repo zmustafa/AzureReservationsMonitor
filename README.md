@@ -56,7 +56,7 @@ Extracts and formats:
 - Styled HTML table
 - Easy-to-read format
 - Includes reservation summary and details
-
+<img width="1707" height="566" alt="image" src="https://github.com/user-attachments/assets/99bd87b3-40ec-44a0-a068-2286fc02c66a" />
 ---
 
 ### 6. Email Delivery
@@ -203,7 +203,7 @@ New-AzResourceGroupDeployment `
 - Select HTTP action
 - Authentication → Managed Identity
 - Choose your identity
-
+<img width="562" height="698" alt="image" src="https://github.com/user-attachments/assets/2a65ece9-ad3e-495a-987e-4e7ede60c334" />
 ---
 
 ## 8. Re-Authorize Office 365 Connection
@@ -211,6 +211,7 @@ New-AzResourceGroupDeployment `
 - Go to Azure Portal → Connections
 - Select office365
 - Click "Fix connection"
+<img width="553" height="722" alt="image" src="https://github.com/user-attachments/assets/b56a21cd-31cd-4847-8f3f-8f9a05dfb84d" />
 
 ---
 
