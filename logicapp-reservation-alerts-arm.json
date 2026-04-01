@@ -1,0 +1,119 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus",
+      "allowedValues": [
+        "eastus", "eastus2", "westus", "westus2", "centralus", "northcentralus",
+        "southcentralus", "westeurope", "northeurope", "uksouth", "ukwest",
+        "southeastasia", "eastasia", "japaneast", "japanwest",
+        "australiaeast", "australiasoutheast"
+      ],
+      "metadata": {
+        "description": "Location of the Logic App"
+      }
+    },
+    "office365ConnectionName": {
+      "type": "string",
+      "defaultValue": "office365"
+    },
+    "managedIdentityResourceId": {
+      "type": "string",
+      "defaultValue": "/you-must-reconnect-after-deployment-of-logic-app"
+    },
+    "emailTo": {
+      "type": "string"
+    },
+    "emailSubject": {
+      "type": "string",
+      "defaultValue": "Weekly Digest of Azure Reservations (Soon to expire or recently expired)"
+    },
+    "recurrenceFrequency": {
+      "type": "string",
+      "defaultValue": "Week"
+    },
+    "recurrenceInterval": {
+      "type": "int",
+      "defaultValue": 1
+    },
+    "recurrenceTimeZone": {
+      "type": "string",
+      "defaultValue": "Eastern Standard Time"
+    },
+    "recurrenceWeekDays": {
+      "type": "array",
+      "defaultValue": ["Monday"]
+    },
+    "recurrenceHours": {
+      "type": "array",
+      "defaultValue": [8]
+    },
+    "recurrenceMinutes": {
+      "type": "array",
+      "defaultValue": [0]
+    },
+    "lookAheadDays": {
+      "type": "int",
+      "defaultValue": 60
+    },
+    "lookBackDays": {
+      "type": "int",
+      "defaultValue": 60
+    },
+    "reservationApiVersion": {
+      "type": "string",
+      "defaultValue": "2022-11-01"
+    },
+    "reservationUri": {
+      "type": "string",
+      "defaultValue": "https://management.azure.com/providers/Microsoft.Capacity/reservationOrders"
+    }
+  },
+  "variables": {
+    "office365ManagedApiId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('location'), '/managedApis/office365')]",
+    "office365ConnectionResourceId": "[resourceId('Microsoft.Web/connections', parameters('office365ConnectionName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('office365ConnectionName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "displayName": "[parameters('office365ConnectionName')]",
+        "api": {
+          "id": "[variables('office365ManagedApiId')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2019-05-01",
+      "name": "[parameters('logicAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/connections', parameters('office365ConnectionName'))]"
+      ],
+      "properties": {
+        "state": "Enabled",
+        "definition": { ... },           // ← The entire Logic App definition (kept as-is)
+        "parameters": { ... }            // ← Parameter values passed into the workflow
+      }
+    }
+  ],
+  "outputs": {
+    "logicAppResourceId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Logic/workflows', parameters('logicAppName'))]"
+    },
+    "office365ConnectionResourceId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Web/connections', parameters('office365ConnectionName'))]"
+    }
+  }
+}
