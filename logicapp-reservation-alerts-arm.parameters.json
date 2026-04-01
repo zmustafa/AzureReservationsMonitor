@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "value": "Weekly-Azure-Reservation-Digest"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "office365ConnectionName": {
+      "value": "office365"
+    },
+    "managedIdentityResourceId": {
+      "value": "/you-must-reconnect-after-deployment-of-logic-app"
+    },
+    "emailTo": {
+      "value": "your-email@domain.com"
+    },
+    "emailSubject": {
+      "value": "Weekly Digest of Azure Reservations (Soon to expire or recently expired)"
+    },
+    "recurrenceFrequency": {
+      "value": "Week"
+    },
+    "recurrenceInterval": {
+      "value": 1
+    },
+    "recurrenceTimeZone": {
+      "value": "Eastern Standard Time"
+    },
+    "recurrenceWeekDays": {
+      "value": ["Monday"]
+    },
+    "recurrenceHours": {
+      "value": [8]
+    },
+    "recurrenceMinutes": {
+      "value": [0]
+    },
+    "lookAheadDays": {
+      "value": 60
+    },
+    "lookBackDays": {
+      "value": 60
+    },
+    "reservationApiVersion": {
+      "value": "2022-11-01"
+    },
+    "reservationUri": {
+      "value": "https://management.azure.com/providers/Microsoft.Capacity/reservationOrders"
+    }
+  }
+}
