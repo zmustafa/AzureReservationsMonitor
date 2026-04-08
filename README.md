@@ -1,4 +1,4 @@
-# Azure Reservation Instance Automated Expiry Notification
+# Azure Reserved Instance Automated Expiry Notification
 
 ## Overview
 
