@@ -1,4 +1,4 @@
-# Azure Logic App – Reservation Expiry Notification
+Azure Reservation Instance Automated Expiry Notification
 
 ## Overview
 
